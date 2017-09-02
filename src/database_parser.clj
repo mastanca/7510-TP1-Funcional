@@ -1,11 +1,7 @@
 (ns database-parser)
 
 (require '[clojure.string :as str])
-
-(defn- line-valid?
-  [s]
-  (= (subs s (- (.length s) 1) (.length s)) ".")
-  )
+(require '[input-validator])
 
 (defn- remove-trailing-char
   [s]
@@ -23,7 +19,7 @@
   (let [splitted-elements
         (map remove-first-two-chars
              (remove str/blank? (str/split database #"\n")))]
-    (if (not-every? line-valid? splitted-elements)
+    (if (not-every? #(input-validator/valid-input? % ".") splitted-elements)
       nil
       (map remove-trailing-char splitted-elements)))
   )
