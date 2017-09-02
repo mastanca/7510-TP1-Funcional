@@ -1,10 +1,6 @@
-# funcional-template
+# TP1-Funcional
 
-A Clojure library designed to be used as a template for each exercise/tp used in Tecnicas de Diseño.
-
-## Usage
-
-<Complete this section>
+TP1 sobre programación funcional para 75.10 Tecnicas de Diseño, FIUBA
 
 ## License
 
