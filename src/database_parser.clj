@@ -20,9 +20,11 @@
 (defn parse-database-string
   "Parses a given database string, returning a list of facts or nil if database is corrupt"
   [database]
-  (def splitted-elements
-    (map remove-first-two-chars
-            (remove str/blank? (str/split database #"\n"))))
-  (if (not-every? line-valid? splitted-elements) nil (map remove-trailing-char splitted-elements))
+  (let [splitted-elements
+        (map remove-first-two-chars
+             (remove str/blank? (str/split database #"\n")))]
+    (if (not-every? line-valid? splitted-elements)
+      nil
+      (map remove-trailing-char splitted-elements)))
   )
 

@@ -6,8 +6,10 @@
   "Returns true if the rules and facts in database imply query, false if not. If
   either input can't be parsed, returns nil"
   [database query]
-  (def parsed-database (database-parser/parse-database-string database))
-  (if #(nil? parsed-database)
-    nil
-    (if (some #(= query %) parsed-database) true false))
+  (let [parsed-db (database-parser/parse-database-string database)]
+    (if (nil? parsed-db)
+      nil
+      (if (some #(= query %) (database-parser/parse-database-string database)) true false)
+      )
+    )
   )
