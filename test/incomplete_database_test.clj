@@ -3,8 +3,8 @@
             [logical-interpreter :refer :all]))
 
 (def incomplete-database "
-	varon(juan).
-	varon
+  varon(juan).
+  varon
 ")
 
 (deftest incomplete-database-fact-test
