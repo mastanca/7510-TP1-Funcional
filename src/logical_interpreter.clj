@@ -11,7 +11,7 @@
     (if (input-validator/valid-input? query ")")
       (if (nil? parsed-db)
         nil
-        (if (some #(= query %) parsed-db) true false)
+        (if (some #(= query %) (:facts parsed-db)) true false)
         )
       nil
       )
