@@ -15,9 +15,9 @@
   padre(hector, maria).
   padre(roberto, alejandro).
   padre(roberto, cecilia).
+  hijo(X, Y) :- varon(X), padre(Y, X).
+  hija(X, Y) :- mujer(X), padre(Y, X).
 ")
-;  hijo(X, Y) :- varon(X), padre(Y, X).
-;hija(X, Y) :- mujer(X), padre(Y, X).
 
 (deftest parent-database-fact-test
   (testing "varon(juan) should be true"
