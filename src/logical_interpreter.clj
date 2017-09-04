@@ -39,19 +39,50 @@
   (str/join (map #(str/replace % (name letter) (get letter-map letter)) facts))
   )
 
+;(defn- recursive-replacing
+;  [letter letter-map facts counter]
+;  (let [size (count (keys letter-map))]
+;    (if (<= counter size)
+;      )
+;    )
+;  )
+
+(defn- replace-at
+  [counter letter-map facts]
+  (let [letter (nth (keys letter-map) counter)
+        facts-replaced (replace-one-arg letter letter-map facts)]
+    facts-replaced
+    )
+  )
+
 (defn- replace-args
   "REFACTOR! Replaces args for their values (Recursive maybe? with inc to keys)"
   [rule-args facts]
-  (def clean-args (map #(str/trim %) (first rule-args)))
-  ; Assume max is 3 args, in case of more just add more letters here
-  (def letter-map (zipmap [:X :Y :Z] clean-args))
-  (def letter (first (keys letter-map)))
-  (def facts-replaced (replace-one-arg letter letter-map facts))
-  (def letter (second (keys letter-map)))
-  (def facts-replaced (replace-one-arg letter letter-map facts-replaced))
-  (def letter (nth (keys letter-map) 2))
-  (def facts-replaced (replace-one-arg letter letter-map facts-replaced))
-  facts-replaced
+  (let [clean-args (map #(str/trim %) (first rule-args))
+        letter-map (zipmap [:X :Y :Z] clean-args)
+        keys-size (count (keys letter-map))
+        counter 0
+        ]
+    (def letter (nth (keys letter-map) counter))
+    (def facts-replaced (replace-one-arg letter letter-map facts))
+    (let [counter (+ counter 1)]
+      (if (<= counter keys-size)
+        (
+          (def letter (nth (keys letter-map) counter))
+          (def facts-replaced (replace-one-arg letter letter-map facts-replaced))
+          (let [counter (+ counter 1)]
+            (if (< counter keys-size)
+              (
+                (def letter (nth (keys letter-map) counter))
+                (def facts-replaced (replace-one-arg letter letter-map facts-replaced))
+                )
+              )
+            )
+          )
+        )
+      )
+    facts-replaced
+    )
   )
 
 (defn- get-rule-facts
@@ -74,12 +105,5 @@
       (replace-args query-rule-args (get-rule-facts (first rules-matching-both-name-and-args)))
       )
     )
-  ;(def query-rule-name (re-find rule-name-regex query-rule))
-  ;(def matching-rules (filter #(str/includes? (re-find rule-name-and-args-regex %) query-rule-name) rules)) ;"subtract(X, Y, Z) :- add(Y, Z, X)"
-  ;(def number-of-args-query (get-rule-number-of-args (list query-rule)))
-  ;(def rules-matching-both-name-and-args (filter #(= number-of-args-query (get-rule-number-of-args (list %))) matching-rules))
-  ; Up to here we have the matching rules with both name and number of args
-  ;(def query-rule-args (get-args (list query-rule)))
-  ;(def replaced-facts (replace-args query-rule-args (get-rule-facts (first rules-matching-both-name-and-args))))
   )
 
