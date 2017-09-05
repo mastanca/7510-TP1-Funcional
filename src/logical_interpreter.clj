@@ -10,6 +10,7 @@
 (def after-fact-separator-regex #"[:-].*$")
 
 (declare parse-matching-rules)
+(declare some-fact-matches)
 
 (defn evaluate-query
   "Returns true if the rules and facts in database imply query, false if not. If
@@ -19,12 +20,26 @@
     (if (input-validator/valid-input? query ")")
       (if (nil? parsed-db)
         nil
-        (if (boolean (some #(= query %) (:facts parsed-db)))
+        (if (some-fact-matches query (:facts parsed-db))
           true
-          (boolean (some #(= (parse-matching-rules query (:rules parsed-db)) %) (:facts parsed-db))))
+          (let [facts-from-rule (parse-matching-rules query (:rules parsed-db))
+                ]
+            (let [facts-from-rule (str/replace facts-from-rule #"\)," ");")
+                  facts-from-rule (map #(str/split % #";\s*") (list facts-from-rule))
+                  facts-from-rule (first facts-from-rule)
+                  ]
+              (every? #(some-fact-matches % (:facts parsed-db)) facts-from-rule)
+              )
+            )
+          )
         )
 
       nil)))
+
+(defn- some-fact-matches
+  [fact facts]
+  (some #(= fact %) facts)
+  )
 
 (defn- get-args
   [rules]
@@ -38,14 +53,6 @@
   [letter letter-map facts]
   (str/join (map #(str/replace % (name letter) (get letter-map letter)) facts))
   )
-
-;(defn- recursive-replacing
-;  [letter letter-map facts counter]
-;  (let [size (count (keys letter-map))]
-;    (if (<= counter size)
-;      )
-;    )
-;  )
 
 (defn- replace-at
   [counter letter-map facts]

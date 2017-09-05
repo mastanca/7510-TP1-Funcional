@@ -40,9 +40,9 @@
   (testing "hijo(pepe, juan) should be true"
     (is (= (evaluate-query parent-database "hijo(pepe, juan)")
            true)))
-  ;(testing "hija(maria, roberto) should be false"
-  ;  (is (= (evaluate-query parent-database "hija(maria, roberto)")
-  ;         false)))
+  (testing "hija(maria, roberto) should be false"
+    (is (= (evaluate-query parent-database "hija(maria, roberto)")
+           false)))
   )
 
 (deftest parent-database-empty-query-test
