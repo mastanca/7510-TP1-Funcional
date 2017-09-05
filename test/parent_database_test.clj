@@ -42,7 +42,8 @@
            true)))
   (testing "hija(maria, roberto) should be false"
     (is (= (evaluate-query parent-database "hija(maria, roberto)")
-           false))))
+           false)))
+  )
 
 (deftest parent-database-empty-query-test
   (testing "varon should be nil"
