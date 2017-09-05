@@ -1,4 +1,4 @@
-# TP1-Funcional [![Build Status](https://travis-ci.org/mastanca/7510-TP1-Funcional.svg?branch=master)](https://travis-ci.org/mastanca/7510-TP1-Funcional)
+# TP1-Funcional [![Build Status](https://travis-ci.org/mastanca/7510-TP1-Funcional.svg?branch=develop)](https://travis-ci.org/mastanca/7510-TP1-Funcional)
 
 TP1 sobre programación funcional para 75.10 Tecnicas de Diseño, FIUBA
 
