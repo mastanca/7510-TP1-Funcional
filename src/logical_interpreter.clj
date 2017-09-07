@@ -63,7 +63,8 @@
   )
 
 (defn- replace-args
-  "REFACTOR! Replaces args for their values (Recursive maybe? with inc to keys)"
+  "TODO: Refactor if we got time
+  Replaces args for their values"
   [rule-args facts]
   (let [clean-args (map #(str/trim %) (first rule-args))
         letter-map (zipmap [:X :Y :Z] clean-args)
@@ -113,4 +114,3 @@
       )
     )
   )
-
