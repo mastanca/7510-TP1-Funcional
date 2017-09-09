@@ -1,4 +1,4 @@
-(defproject funcional-template "0.1.0-SNAPSHOT"
+(defproject tp-funcional "0.1.0-SNAPSHOT"
   :description "Template for functional exercises/tps"
   :url "http://materias.fi.uba.ar/7510/"
   :license {:name "Eclipse Public License"

@@ -3,16 +3,16 @@
             [logical-interpreter :refer :all]))
 
 (def number-database "
-	add(zero, zero, zero).
-	add(zero, one, one).
-	add(zero, two, two).
-	add(one, zero, one).
-	add(one, one, two).
-	add(one, two, zero).
-	add(two, zero, two).
-	add(two, one, zero).
-	add(two, two, one).
-	subtract(X, Y, Z) :- add(Y, Z, X).
+  add(zero, zero, zero).
+  add(zero, one, one).
+  add(zero, two, two).
+  add(one, zero, one).
+  add(one, one, two).
+  add(one, two, zero).
+  add(two, zero, two).
+  add(two, one, zero).
+  add(two, two, one).
+  subtract(X, Y, Z) :- add(Y, Z, X).
 ")
 
 (deftest number-database-fact-test
