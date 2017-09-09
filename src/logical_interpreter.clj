@@ -41,7 +41,7 @@
   (some #(= fact %) facts)
   )
 
-(defn- get-args
+(defn get-args
   [rules]
   (map #(str/split % #",") (filter #(not (str/includes? % "(")) (some #(re-find args-regex %) rules))))
 
@@ -63,11 +63,10 @@
   )
 
 (defn- replace-args
-  "TODO: Refactor if we got time
-  Replaces args for their values"
-  [rule-args facts]
+  "Replaces args for their values"
+  [rule-args facts variables]
   (let [clean-args (map #(str/trim %) (first rule-args))
-        letter-map (zipmap [:X :Y :Z] clean-args)
+        letter-map (zipmap variables clean-args)
         keys-size (count (keys letter-map))
         counter 0
         ]
@@ -107,10 +106,12 @@
         matching-rules (filter #(str/includes? (re-find rule-name-and-args-regex %) query-rule-name) rules)
         number-of-args-query (get-rule-number-of-args (list query-rule))
         rules-matching-both-name-and-args (filter #(= number-of-args-query (get-rule-number-of-args (list %))) matching-rules)
-        query-rule-args (get-args (list query-rule))]
+        query-rule-args (get-args (list query-rule))
+        variables-args (map #(keyword (str/trim %)) (first (get-args matching-rules)))
+        ]
     (if (empty? matching-rules)
       false
-      (replace-args query-rule-args (get-rule-facts (first rules-matching-both-name-and-args)))
+      (replace-args query-rule-args (get-rule-facts (first rules-matching-both-name-and-args)) variables-args)
       )
     )
   )
